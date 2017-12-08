@@ -1,11 +1,15 @@
 import webpack from 'webpack';
 import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+
+const GLOBALS = {
+  'process.env.NODE_ENV' : JSON.stringify('production')
+};
 
 export default {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: [
-    'eventsource-polyfill', // necessary for hot reloading with IE
-    'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
     path.resolve(__dirname, 'src/index')
   ],
   target: 'web',
@@ -15,22 +19,17 @@ export default {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'src'),
-    hot: true
+    contentBase: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      context: __dirname,
-      debug: true
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.DefinePlugin(GLOBALS),
+    new ExtractTextPlugin('styles.css'),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel-loader']},
-      {test: /(\.css)$/, loaders: ['style-loader', 'css-loader']},
+      {test: /(\.css)$/, loader: ExtractTextPlugin.extract('css-loader?sourceMap')},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
       {test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=font/&limit=5000'},
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream'},
