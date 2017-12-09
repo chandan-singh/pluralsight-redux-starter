@@ -25,7 +25,7 @@ class CoursesPage extends Component {
         <h1>Courses</h1>
         <input type="submit"
           value="Add Course"
-          className="btn btn-primary"
+          className="btn btn-primary m-3"
           onClick={this.redirectToAddCoursePage}/>
         <CourseList courses={courses}/>
       </div>
