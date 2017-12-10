@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import SelectInput from '../common/SelectInput';
 import TextInput from '../common/TextInput';
 
-const CourseForm = ({course, allAuthors, onSave, onUpdate, loading, errors}) => {
+const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => {
   return (
     <form>
       <h1>Manage Course</h1>
@@ -13,7 +13,7 @@ const CourseForm = ({course, allAuthors, onSave, onUpdate, loading, errors}) => 
         name="title"
         label="Title"
         value={course.title}
-        onChange={onUpdate}
+        onChange={onChange}
         error={errors.title}
         />
 
@@ -23,7 +23,7 @@ const CourseForm = ({course, allAuthors, onSave, onUpdate, loading, errors}) => 
           value={course.authorId}
           defaultOption="Select Author"
           options={allAuthors}
-          onChange={onUpdate}
+          onChange={onChange}
           error={errors.authorId}
           />
 
@@ -31,14 +31,14 @@ const CourseForm = ({course, allAuthors, onSave, onUpdate, loading, errors}) => 
           name="category"
           label="Category"
           value={course.category}
-          onChange={onUpdate}
+          onChange={onChange}
           error={errors.category}
           />
         <TextInput
           name="length"
           label="Length"
           value={course.length}
-          onChange={onUpdate}
+          onChange={onChange}
           error={errors.length}
           />
 
@@ -56,7 +56,7 @@ const CourseForm = ({course, allAuthors, onSave, onUpdate, loading, errors}) => 
 CourseForm.propTypes = {
   course: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   allAuthors: PropTypes.array,
   loading: PropTypes.bool,
   errors: PropTypes.object

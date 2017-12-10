@@ -26,7 +26,8 @@ describe('Manage course page', () => {
           return Promise.resolve();
         }
       },
-      course: course
+      course: course,
+      history: {}
     };
 
     const wrapper = Enzyme.mount(<ManageCoursePage {...props}/>);

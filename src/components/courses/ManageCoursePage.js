@@ -77,7 +77,14 @@ export class ManageCoursePage extends Component {
   }
 
   render() {
-    return (<CourseForm onUpdate={this.updateCourseState} onSave={this.saveCourse} course={this.state.course} errors={this.state.errors} allAuthors={this.props.authors} loading={this.state.saving}/>);
+    return (<CourseForm
+      onChange={this.updateCourseState}
+      onSave={this.saveCourse}
+      course={this.state.course}
+      errors={this.state.errors}
+      allAuthors={this.props.authors}
+      loading={this.state.saving}/>
+    );
   }
 }
 
